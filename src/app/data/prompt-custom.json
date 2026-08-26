@@ -138,5 +138,180 @@
     "object": "人物",
     "attribute": "韩系写真",
     "description": "性感但克制的韩系人像，强调高级、自然与时尚感"
+  },
+  {
+    "displayName": "ultra realistic portrait photography",
+    "langName": "超写实人像摄影",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "接近真实相机拍摄的人像效果，减少插画感和AI感"
+  },
+  {
+    "displayName": "natural skin pores",
+    "langName": "自然毛孔细节",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "保留真实毛孔和细微纹理，不做蜡像式磨皮"
+  },
+  {
+    "displayName": "fine facial skin texture",
+    "langName": "细腻面部纹理",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "面部皮肤细节清晰自然，兼顾细腻与真实"
+  },
+  {
+    "displayName": "realistic subsurface skin scattering",
+    "langName": "真实皮肤透光感",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "模拟真实皮肤受光后的微弱透光与层次感"
+  },
+  {
+    "displayName": "natural facial asymmetry",
+    "langName": "自然面部不对称",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "保留真实人脸轻微不对称，避免过度完美的AI脸"
+  },
+  {
+    "displayName": "authentic eye reflections",
+    "langName": "真实眼神反光",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "眼睛高光与环境光源一致，增强真人摄影可信度"
+  },
+  {
+    "displayName": "detailed eyelashes and eyebrows",
+    "langName": "精细睫毛眉毛",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "清晰自然的睫毛与眉毛毛流，不出现粘连和涂抹感"
+  },
+  {
+    "displayName": "individual hair strands",
+    "langName": "真实发丝细节",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "可见独立发丝、碎发和自然毛躁，增强真实摄影感"
+  },
+  {
+    "displayName": "realistic fabric microtexture",
+    "langName": "真实服装微纹理",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "衣料纹理、褶皱和反光符合真实材质特性"
+  },
+  {
+    "displayName": "cinematic dynamic range",
+    "langName": "电影级动态范围",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "高光不过曝、暗部有细节，画面层次接近专业相机"
+  },
+  {
+    "displayName": "physically plausible lighting",
+    "langName": "物理合理光影",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "主光、辅光、阴影方向一致，避免AI式错乱打光"
+  },
+  {
+    "displayName": "soft natural shadow transitions",
+    "langName": "自然阴影过渡",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "阴影边缘柔和自然，符合真实人像摄影的光线衰减"
+  },
+  {
+    "displayName": "high micro contrast",
+    "langName": "高微对比细节",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "提升发丝、睫毛、皮肤和衣料的小尺度细节表现"
+  },
+  {
+    "displayName": "tack sharp subject focus",
+    "langName": "主体精准锐焦",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "人物眼睛与面部处于精准焦点，避免整体软糊"
+  },
+  {
+    "displayName": "natural optical depth of field",
+    "langName": "真实光学景深",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "前后景虚化遵循真实镜头规律，不出现抠图式模糊"
+  },
+  {
+    "displayName": "full frame camera look",
+    "langName": "全画幅相机质感",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "模拟全画幅相机的人像层次、景深和画面通透感"
+  },
+  {
+    "displayName": "85mm portrait lens look",
+    "langName": "85mm人像镜头感",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "自然面部透视和柔和背景压缩，适合高质感半身写真"
+  },
+  {
+    "displayName": "50mm natural perspective",
+    "langName": "50mm自然透视",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "接近日常人眼观看感受的自然透视关系"
+  },
+  {
+    "displayName": "subtle sensor noise",
+    "langName": "轻微传感器噪点",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "极轻微真实相机噪点，避免数字塑料感"
+  },
+  {
+    "displayName": "minimal beauty retouching",
+    "langName": "轻度真实修图",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "保留皮肤和五官真实细节，只做克制的商业级修饰"
+  },
+  {
+    "displayName": "no plastic skin look",
+    "langName": "避免塑料皮肤",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "抑制蜡质、塑料感、过度平滑和不自然高光"
+  },
+  {
+    "displayName": "no overprocessed AI face",
+    "langName": "避免AI网红脸",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "减少模板化尖下巴、大眼、过度对称和统一脸型"
+  },
+  {
+    "displayName": "realistic hands and fingers",
+    "langName": "真实手部与手指",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "手部比例、关节、手指数量和姿态自然可信"
+  },
+  {
+    "displayName": "anatomically natural body proportions",
+    "langName": "自然人体比例",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "身体比例符合真人摄影，避免夸张拉长或局部畸变"
+  },
+  {
+    "displayName": "true to life color grading",
+    "langName": "真实自然调色",
+    "object": "人物",
+    "attribute": "高清真人质感",
+    "description": "肤色与环境色不过分偏色，整体接近专业摄影后期"
   }
 ]
