@@ -69,15 +69,23 @@ const HomeClient: FC<HomeClientProps> = ({ objects, attributes: attributesByObje
   const { tags: objectTags, status: tagsStatus, retry: retryTags } = useObjectTags(locale, activeObjectIndex, firstChunk);
 
   // 合并 custom 标签（小）
-  const combinedTagsData = useMemo<TagItem[]>(
-    () => [...objectTags, ...(tagsData2 as TagItem[]).filter((t) => t.object === activeObject)],
-    [objectTags, activeObject],
+  const customTagsForObject = useMemo<TagItem[]>(
+    () => (tagsData2 as TagItem[]).filter((tag) => tag.object === activeObject),
+    [activeObject],
   );
 
-  const attributes = useMemo(
-    () => attributesByObject[activeObject] ?? [],
-    [attributesByObject, activeObject],
+  const combinedTagsData = useMemo<TagItem[]>(
+    () => [...objectTags, ...customTagsForObject],
+    [objectTags, customTagsForObject],
   );
+
+  // 主数据的分类 + custom 标签新增分类。这样 prompt-custom.json 可以真正增加新标签组，
+  // 而不需要同步修改 18 份大型本地化 prompt-*.json。
+  const attributes = useMemo(() => {
+    const base = attributesByObject[activeObject] ?? [];
+    const custom = customTagsForObject.map((tag) => tag.attribute);
+    return [...new Set([...base, ...custom])];
+  }, [attributesByObject, activeObject, customTagsForObject]);
 
   const [activeAttribute, setActiveAttribute] = useState<string>(() => attributes[0] ?? "");
   const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
@@ -119,6 +127,11 @@ const HomeClient: FC<HomeClientProps> = ({ objects, attributes: attributesByObje
     setActiveAttribute(attributes[0] ?? "");
   }
 
+  // 如果 custom 标签在当前 object 新增了 attribute，确保 activeAttribute 始终有效。
+  if (activeAttribute && !attributes.includes(activeAttribute)) {
+    setActiveAttribute(attributes[0] ?? "");
+  }
+
   // URL state on init: read from hash (#object=..&attribute=..) or legacy ?object=..&attribute=..
   // 哈希值是分类索引（locale 无关：同一索引在 18 语言里指向同一分类，
   // 链接跨语言可移植、CJK 不再百分号编码成乱码）；旧链接里的本地化名字
@@ -135,7 +148,11 @@ const HomeClient: FC<HomeClientProps> = ({ objects, attributes: attributesByObje
 
     const objName = resolveCategoryParam(objParam, objects);
     if (objName) {
-      const newAttrs = attributesByObject[objName] ?? [];
+      const baseAttrs = attributesByObject[objName] ?? [];
+      const customAttrs = (tagsData2 as TagItem[])
+        .filter((tag) => tag.object === objName)
+        .map((tag) => tag.attribute);
+      const newAttrs = [...new Set([...baseAttrs, ...customAttrs])];
       const validAttr = resolveCategoryParam(attrParam, newAttrs) ?? newAttrs[0] ?? "";
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setActiveObject(objName);
@@ -153,7 +170,11 @@ const HomeClient: FC<HomeClientProps> = ({ objects, attributes: attributesByObje
       const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
       const objName = resolveCategoryParam(hashParams.get("object"), objects);
       if (!objName) return;
-      const newAttrs = attributesByObject[objName] ?? [];
+      const baseAttrs = attributesByObject[objName] ?? [];
+      const customAttrs = (tagsData2 as TagItem[])
+        .filter((tag) => tag.object === objName)
+        .map((tag) => tag.attribute);
+      const newAttrs = [...new Set([...baseAttrs, ...customAttrs])];
       setActiveObject(objName);
       setPreviousActiveObject(objName);
       setActiveAttribute(resolveCategoryParam(hashParams.get("attribute"), newAttrs) ?? newAttrs[0] ?? "");
@@ -171,7 +192,7 @@ const HomeClient: FC<HomeClientProps> = ({ objects, attributes: attributesByObje
     url.searchParams.delete("attribute");
     const hashParams = new URLSearchParams();
     const objIdx = objects.indexOf(activeObject);
-    const attrIdx = (attributesByObject[activeObject] ?? []).indexOf(activeAttribute);
+    const attrIdx = attributes.indexOf(activeAttribute);
     // 默认落点（首个 object + 首个 attribute）= 无 hash 时的状态，不写 hash，
     // 保持打开时地址栏干净；任一维非默认才写。object 必须同写——读取端缺
     // object 参数时不会单独恢复 attribute（resolveCategoryParam(null) 返回 null）。
@@ -186,7 +207,7 @@ const HomeClient: FC<HomeClientProps> = ({ objects, attributes: attributesByObje
     if (nextUrl !== window.location.href) {
       window.history.replaceState({}, "", nextUrl);
     }
-  }, [activeObject, activeAttribute, objects, attributesByObject, urlInitDone]);
+  }, [activeObject, activeAttribute, objects, attributes, urlInitDone]);
 
   const handleObjectClick = useCallback((object: string) => {
     setActiveObject(object);
@@ -216,76 +237,73 @@ const HomeClient: FC<HomeClientProps> = ({ objects, attributes: attributesByObje
   return (
     <>
       <Row gutter={[18, 18]}>
-        {/* 6/24 的右栏在 992–1200 只有 ~230px：提示词框每行放不下 20 个字符、
-            翻译输入框的 placeholder 被截断，而右栏下方留着几百像素空白。
-            提示词是本工具的产出，按 8→7 给它实际可读的宽度。 */}
-        <Col xs={24} lg={16} xl={17}>
-          <Flex vertical gap={16}>
-            <section className="pp-tray">
-              <div style={{ marginBottom: 13 }}>
-                <SectionTitle index={1} title={t("section1")} gloss="Subject" showGloss={showGloss} />
+        <Col xs={24} lg={18}>
+          <Flex vertical gap={18}>
+            <div className="pp-card">
+              <div className="pp-card-head">
+                <SectionTitle index={1} title={t("objectTitle")} gloss="SUBJECT" showGloss={showGloss} />
               </div>
-              <CategoryRadio className="pp-cats" items={objects} value={activeObject} onChange={handleObjectClick} />
-            </section>
-
-            <section className="pp-tray">
-              <div style={{ marginBottom: 13 }}>
-                <SectionTitle index={2} title={t("section2")} gloss="Facet" showGloss={showGloss} />
-              </div>
-              <CategoryRadio className="pp-subs" items={attributes} value={activeAttribute} onChange={handleAttributeClick} />
-            </section>
-
-            <section className="pp-tray">
-              <Flex justify="space-between" align="center" gap={8} style={{ marginBottom: 10 }}>
-                <SectionTitle index={3} title={t("section3")} gloss="Pick your pigments" showGloss={showGloss} />
-                <Segmented
-                  size="small"
-                  value={useColorBlocks ? "multicolor" : "monochrome"}
-                  onChange={(v) => setUseColorBlocks(v === "multicolor")}
-                  options={[
-                    { label: t("tagMode-multicolor"), value: "multicolor" },
-                    { label: t("tagMode-monochrome"), value: "monochrome" },
-                  ]}
+              <div className="pp-card-body">
+                <CategoryRadio
+                  options={objects}
+                  value={activeObject}
+                  onChange={handleObjectClick}
+                  colorMode={useColorBlocks}
                 />
-              </Flex>
-              <div style={{ maxHeight: "clamp(280px, 36vh, 400px)", overflowY: "auto" }}>
-                {/* 有标签就渲染，不拿网络状态当门槛：prompt-custom.json 的自定义标签
-                    已经打进包里、根本不需要网络，分块抓取失败时它们照样该能点。
-                    原来写成 status==="ready" 三元，自托管用户在 CDN 抽风时会连自己
-                    的词库一起看不到，重试按钮又只会反复打同一个坏 URL。 */}
-                {filteredTags.length > 0 && (
-                  <TagSection tags={filteredTags} selectedNameSet={selectedNameSet} onTagClick={handleTagClick} mono={!useColorBlocks} />
-                )}
-                {/* 状态条常驻：aria-live 区域必须先存在于无障碍树里，之后内容变化才会被
-                    播报；容器连着文字一起插入的话读屏一个字都不念。ready 时这里是空
-                    div，由 .pp-tag-state:empty 压成 0 高，不占位 */}
-                <div className="pp-tag-state" role="status" aria-live="polite">
-                  {tagsStatus === "loading" && (
-                    <>
-                      <Spin size="small" />
-                      <span>{t("tagsLoading")}</span>
-                    </>
-                  )}
-                  {tagsStatus === "error" && (
-                    <>
-                      <span>{t("tagsError")}</span>
-                      <Button size="small" onClick={retryTags}>
-                        {t("retry")}
-                      </Button>
-                    </>
-                  )}
-                </div>
               </div>
-            </section>
-          </Flex>
-          {selectedTags.length > 0 && (
-            <div style={{ marginTop: 16 }}>
-              <SelectedTagsSection selectedTags={selectedTags} onTagClick={handleTagClick} />
             </div>
-          )}
+
+            <div className="pp-card">
+              <div className="pp-card-head">
+                <SectionTitle index={2} title={t("attributeTitle")} gloss="FACET" showGloss={showGloss} />
+              </div>
+              <div className="pp-card-body">
+                <CategoryRadio
+                  options={attributes}
+                  value={activeAttribute}
+                  onChange={handleAttributeClick}
+                  colorMode={useColorBlocks}
+                />
+              </div>
+            </div>
+
+            <div className="pp-card">
+              <div className="pp-card-head">
+                <SectionTitle index={3} title={t("tagTitle")} gloss="TAGS" showGloss={showGloss} />
+              </div>
+              <div className="pp-card-body">
+                {tagsStatus === "loading" ? (
+                  <Flex align="center" justify="center" style={{ minHeight: 120 }}>
+                    <Spin />
+                  </Flex>
+                ) : tagsStatus === "error" ? (
+                  <Flex vertical align="center" gap={12} style={{ minHeight: 120, justifyContent: "center" }}>
+                    <span>{t("loadError")}</span>
+                    <Button onClick={retryTags}>{t("retry")}</Button>
+                  </Flex>
+                ) : (
+                  <TagSection
+                    tags={filteredTags}
+                    selectedNames={selectedNameSet}
+                    onTagClick={handleTagClick}
+                    useColorBlocks={useColorBlocks}
+                  />
+                )}
+              </div>
+            </div>
+          </Flex>
         </Col>
-        <Col xs={24} lg={8} xl={7}>
-          <ResultSection selectedTags={selectedTags} setSelectedTags={setSelectedTags} firstChunk={firstChunk} objectCount={objects.length} />
+
+        <Col xs={24} lg={6}>
+          <Flex vertical gap={18}>
+            <SelectedTagsSection
+              tags={selectedTags}
+              onTagClick={handleTagClick}
+              useColorBlocks={useColorBlocks}
+              onColorModeChange={setUseColorBlocks}
+            />
+            <ResultSection selectedTags={selectedTags} />
+          </Flex>
         </Col>
       </Row>
     </>
