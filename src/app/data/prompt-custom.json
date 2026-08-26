@@ -1,1 +1,142 @@
-[]
+[
+  {
+    "displayName": "Korean editorial portrait",
+    "langName": "韩系杂志写真",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "高级韩系杂志人像，画面干净、精致、时尚感强"
+  },
+  {
+    "displayName": "Korean beauty photography",
+    "langName": "韩系美妆写真",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "强调精致妆容、皮肤质感和商业美妆摄影效果"
+  },
+  {
+    "displayName": "Korean soft glam makeup",
+    "langName": "韩系柔雾妆",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "柔和精致的韩式妆容，低饱和眼妆与自然轮廓"
+  },
+  {
+    "displayName": "glass skin",
+    "langName": "韩系水光肌",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "通透细腻、带自然高光的水润皮肤质感"
+  },
+  {
+    "displayName": "dewy skin",
+    "langName": "水润光泽肌",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "自然湿润光泽感皮肤，适合近距离高清人像"
+  },
+  {
+    "displayName": "soft peach makeup",
+    "langName": "蜜桃色妆容",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "清透蜜桃色系腮红与眼妆，年轻自然"
+  },
+  {
+    "displayName": "muted rose lips",
+    "langName": "低饱和玫瑰唇",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "韩系写真常见的柔和玫瑰色唇妆"
+  },
+  {
+    "displayName": "natural straight brows",
+    "langName": "自然平直眉",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "干净自然的韩式平直眉形"
+  },
+  {
+    "displayName": "Korean salon hair",
+    "langName": "韩系沙龙发型",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "蓬松顺滑、层次自然的韩国沙龙感发型"
+  },
+  {
+    "displayName": "long dark layered hair",
+    "langName": "深色长层次发",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "深色长发与轻盈层次，适合成熟韩系写真"
+  },
+  {
+    "displayName": "soft flash photography",
+    "langName": "柔和闪光灯写真",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "轻柔直闪与环境光混合，具有真实高级的韩系摄影感"
+  },
+  {
+    "displayName": "luxury hotel portrait",
+    "langName": "高级酒店写真",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "酒店、化妆镜、石材与暖光环境中的高级人像"
+  },
+  {
+    "displayName": "Seoul street fashion portrait",
+    "langName": "首尔街头时尚写真",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "首尔街拍氛围，时尚穿搭与自然城市背景"
+  },
+  {
+    "displayName": "minimal studio portrait",
+    "langName": "极简棚拍写真",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "简洁背景、柔光与克制构图的韩系棚拍风格"
+  },
+  {
+    "displayName": "cafe window portrait",
+    "langName": "咖啡店窗边写真",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "韩系咖啡店窗边自然光人像，轻松生活感"
+  },
+  {
+    "displayName": "high-end magazine editorial",
+    "langName": "高端时尚大片",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "高端时尚杂志质感，精细布光与高级后期"
+  },
+  {
+    "displayName": "35mm Korean fashion portrait",
+    "langName": "35mm韩系时尚人像",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "35mm视角的自然时尚人像，兼顾环境与人物"
+  },
+  {
+    "displayName": "subtle film grain",
+    "langName": "细腻胶片颗粒",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "轻微胶片颗粒，提升真实照片与杂志质感"
+  },
+  {
+    "displayName": "clean high-definition skin texture",
+    "langName": "高清真实皮肤质感",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "保留毛孔与细微皮肤纹理，避免塑料感与过度磨皮"
+  },
+  {
+    "displayName": "elegant sensual Korean portrait",
+    "langName": "优雅性感韩系写真",
+    "object": "人物",
+    "attribute": "韩系写真",
+    "description": "性感但克制的韩系人像，强调高级、自然与时尚感"
+  }
+]
